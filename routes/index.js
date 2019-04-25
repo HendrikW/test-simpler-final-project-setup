@@ -9,7 +9,7 @@ router.get('/test', (req, res, next) => {
 });
 
 /* GET user information – we can name this /loggedInUser or whatever */
-router.get('/user', (req, res, next) => {
+router.get('/initialUserData', (req, res, next) => {
   setTimeout(() => {
     res.json({ fullName: 'Mr. Test Test' });
   }, 1000)  

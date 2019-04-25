@@ -8,10 +8,13 @@ import axios from 'axios'
 
 // I think we should make it as synchronous as possible to get the user. 
 // possibly just not rendering anything until the backend answers with potential user information
-axios.get('/user').then(res => {
+
+document.getElementById('root').innerText = 'The React app has not connected to the backend yet.'
+
+axios.get('/initialUserData').then(res => {
   ReactDOM.render(<App user={res.data}/>, document.getElementById('root')); 
 }).catch(err => {
-  alert('backend not running or /user route not defined !')
+  alert('backend not running or /initialUserData route not defined !')
 })
 
 
