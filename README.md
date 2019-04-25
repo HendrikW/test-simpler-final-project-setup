@@ -12,6 +12,13 @@ sudo rm -r client/.git
 cd ..
 ```
 
+Now in the project folder's `package.json` add an ignore for nodemon. This is necessary because we really don't want our server to restart when we modify files in our client (this can lead to unexpected behaviour, e.g. the server being restartet exactly when the react app does the first request to the server, with the request then failing).
+```
+  "nodemonConfig": {
+    "ignore": ["client/*"]
+  }
+```
+
 Initialize the git repository:
 ```
 git init . && git add . && git commit -m 'inital commit'
@@ -26,7 +33,7 @@ Edit `client/package.json` and add the following line as a property to the confi
 
 Edit `.env` and change the `PORT` to `PORT=5000`.
 
-Done.
+Done. Now you can always use relative paths (no env vars necessary anymore) and don't have to worry about CORS.
 
 ### 2. Letting the react app know if the user is logged in
 
@@ -52,7 +59,7 @@ Add a route in the backend that answers with the current user (if any):
 ```
 router.get('/initialUserData', (req, res, next) => {
   setTimeout(() => {
-    res.json({ fullName: 'Mr. Test Test' });
+    res.json({ fullName: 'Mr. Test Test' }); // just sample data
   }, 1000)  
 });
 ```
@@ -64,7 +71,7 @@ In `App.js`, to always have access to the current user after a page reload, add
   }
 ```
 
-Done.
+Done. Now your app after a page refresh is always in either of two states: user is logged in or not logged in. No asynchronous check and immediate re-render of your app anymore.
 
 ### 3. Make deploy to heroku as easy as `git push heroku master`
 
